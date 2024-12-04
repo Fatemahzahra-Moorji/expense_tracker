@@ -2,4 +2,21 @@
     <string name="app_name">Expense Tracker</string>
     <string name="title">Budget Homie </string>
     <string name="submitbutton">Submit</string>
+    <string name="category">Category</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
+    <string name="add_record">Add Record</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="expense">Is this an expense?</string>
+    <string name="save">Save</string>
+
+    <string-array name="categories">
+        <item>School</item>
+        <item>Work</item>
+        <item>Travel</item>
+        <item>Utilities</item>
+        <item>Insurance</item>
+        <item>Emergencies</item>
+        <item>Housing</item>
+    </string-array>
 </resources>

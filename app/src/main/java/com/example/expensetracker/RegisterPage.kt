@@ -11,23 +11,23 @@ import com.example.expensetracker.databinding.ActivityRegisterPageBinding
 
 class RegisterPage : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterPageBinding
-    lateinit var usernameInput: EditText
-    lateinit var passwordInput:EditText
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-        val users=emptyMap<String, String>()
+        val users= mutableMapOf<String,String>()
         binding.registerSubmitButton.setOnClickListener(){
                 //grab what user submitted to edittext and save to variable
-            usernameInput=binding.editTextUsername
-            passwordInput=binding.editTextTextPassword
+            var usernameInput=binding.editTextUsername.text.toString()
+            var passwordInput=binding.editTextTextPassword.text.toString()
+            users[usernameInput] = passwordInput
 
-            val i= Intent(this,MainActivity::class.java)
-            i.putExtra("usernameInput",0)
-            i.putExtra("passwordInput",0)
+            val i= Intent(this,Homepage::class.java)
+
+            //i.putExtra("usernameInput",users)
+            //i.putExtra("passwordInput",passwordInput)
             startActivity(i)
 
         }

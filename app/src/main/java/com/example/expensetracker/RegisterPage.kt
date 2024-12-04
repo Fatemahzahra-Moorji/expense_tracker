@@ -19,7 +19,7 @@ class RegisterPage : AppCompatActivity() {
         binding = ActivityRegisterPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-        val users=emptyMap<String, String>()
+        val users = emptyMap<String, String>()
         binding.registerSubmitButton.setOnClickListener(){
                 //grab what user submitted to edittext and save to variable
             usernameInput=binding.editTextUsername

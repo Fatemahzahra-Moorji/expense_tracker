@@ -2,32 +2,36 @@ package com.example.expensetracker
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expensetracker.databinding.RecordItemBinding
 
-class BudgetAdapter : ListAdapter<Record, BudgetAdapter.BudgetViewHolder>(DiffCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
-        val binding = RecordItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BudgetViewHolder(binding)
-    }
+class BudgetAdapter : RecyclerView.Adapter<BudgetAdapter.ExpenseViewHolder>() {
 
-    override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
-        val record = getItem(position)
-        holder.bind(record)
-    }
+    private var expenses: MutableList<Record> = mutableListOf()
 
-    class BudgetViewHolder(private val binding: RecordItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(record: Record) {
-            binding.categoryText.text = record.category
-            binding.amountText.text = "${if (record.isExpense) "-" else "+"} $${record.amount}"
-            binding.descriptionText.text = record.description
+    inner class ExpenseViewHolder(private val binding: RecordItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(expense: Record) {
+            binding.categoryTextView.text = expense.category
+            binding.amountTextView.text = expense.amount.toString()
+            binding.descriptionTextView.text = expense.description
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Record>() {
-        override fun areItemsTheSame(oldItem: Record, newItem: Record): Boolean = oldItem == newItem
-        override fun areContentsTheSame(oldItem: Record, newItem: Record): Boolean = oldItem == newItem
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
+        val binding = RecordItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ExpenseViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
+        holder.bind(expenses[position])
+    }
+
+    override fun getItemCount(): Int = expenses.size
+
+    fun submitList(newExpenses: List<Record>) {
+        val startPosition = expenses.size
+        expenses.addAll(newExpenses)
+        notifyItemRangeInserted(startPosition, newExpenses.size)
+        notifyDataSetChanged()
     }
 }

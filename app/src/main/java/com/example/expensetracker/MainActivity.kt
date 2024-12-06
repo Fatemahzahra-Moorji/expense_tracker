@@ -1,47 +1,44 @@
 package com.example.expensetracker
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.expensetracker.databinding.ActivityMainBinding
-
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: BudgetViewModel
-    private lateinit var adapter: BudgetAdapter
+    private val viewModel: BudgetViewModel by viewModels()
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[BudgetViewModel::class.java]
-
-        adapter = BudgetAdapter()
+        val adapter = BudgetAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
-        binding.btnAdd.setOnClickListener {
-            val intent = Intent(this, AddRecordActivity::class.java)
-            startActivity(intent)
+        viewModel.expenses.observe(this) { expenses ->
+            adapter.submitList(expenses)
         }
 
-        viewModel.records.observe(this) { records ->
-            adapter.submitList(records)
+        binding.addButton.setOnClickListener {
+            startActivity(Intent(this, AddRecordActivity::class.java))
         }
 
-        binding.categoryFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val category = parent?.getItemAtPosition(position).toString()
-                viewModel.filterByCategory(category)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        binding.logoutButton.setOnClickListener {
+            auth.signOut()
+            startActivity(Intent(this, LoginPage::class.java))
+            finish()
         }
+
+        viewModel.loadExpenses(auth.currentUser?.uid ?: "")
     }
 }

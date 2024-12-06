@@ -22,6 +22,18 @@
             android:name=".RegisterPage"
             android:exported="false" />
         <activity
+            android:name=".AddRecordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BudgetAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".BudgetViewModel"
+            android:exported="false" />
+        <activity
+            android:name=".Record"
+            android:exported="false" />
+        <activity
             android:name=".StartPage"
             android:exported="true">
             <intent-filter>

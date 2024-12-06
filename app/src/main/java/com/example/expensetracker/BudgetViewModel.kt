@@ -3,16 +3,22 @@ package com.example.expensetracker
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 class BudgetViewModel : ViewModel() {
-    private val _records = MutableLiveData<List<Record>>(emptyList())
-    val records: LiveData<List<Record>> get() = _records
 
-    fun addRecord(record: Record) {
-        _records.value = _records.value?.plus(record)
-    }
+    private val db = FirebaseFirestore.getInstance()
+    private val _expenses = MutableLiveData<List<Record>>()
+    val expenses: LiveData<List<Record>> get() = _expenses
 
-    fun filterByCategory(category: String) {
-        _records.value = _records.value?.filter { it.category == category }
+    fun loadExpenses(userId: String) {
+        db.collection("users").document(userId).collection("expenses")
+            .addSnapshotListener { value, error ->
+                if (error != null || value == null) {
+                    return@addSnapshotListener
+                }
+                val records = value.toObjects(Record::class.java)
+                _expenses.value = records
+            }
     }
 }

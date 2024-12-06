@@ -7,8 +7,19 @@
     <string name="description">Description</string>
     <string name="add_record">Add Record</string>
     <string name="enter_amount">Enter Amount</string>
+    <string name="enter_description">Enter Description</string>
     <string name="expense">Is this an expense?</string>
     <string name="save">Save</string>
+    <string name="logout">Logout</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="login_redirection">Already have an account? Login here</string>
+    <string name="login">Login</string>
+    <string name="register_redirection">Don\'t have an account? Register here</string>
+    <string name="welcome">Welcome!</string>
 
     <string-array name="categories">
         <item>School</item>

@@ -24,15 +24,13 @@ class StartPage : AppCompatActivity() {
         }
 
         binding.loginButton.setOnClickListener(){
-        //adding intent calling login acivity so user can log into their account
+        //adding intent calling login activity so user can log into their account
             val i = Intent(this, LoginPage::class.java)
             startActivity(i)
-
-
-
         }
+
         binding.registerButton.setOnClickListener(){
-            //add intent calling the register acivity so user can register for an account
+            //add intent calling the register activity so user can register for an account
             val i = Intent(this, RegisterPage::class.java)
             startActivity(i)
         }

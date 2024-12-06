@@ -1,8 +1,7 @@
 package com.example.expensetracker
 
 data class Record(
-    val category: String,
-    val amount: Double,
-    val description: String,
-    val isExpense: Boolean
+    val category: String = "",
+    val amount: Double = 0.0,
+    val description: String = ""
 )

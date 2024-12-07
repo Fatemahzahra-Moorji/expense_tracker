@@ -20,8 +20,6 @@ class LoginPage : AppCompatActivity() {
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        //reference the map Jen created on the register page
-
         binding.loginButton.setOnClickListener(){
             //grab what user submitted to edittext and save to variable
             usernameInput=binding.usernameTxt
@@ -29,9 +27,11 @@ class LoginPage : AppCompatActivity() {
 
             //login page goes to the main page once user clicks on the Login button
             val i = Intent(this,MainActivity::class.java)
+
+            //reference the variables from fatemahzahra's page that connects this page to the database
+            //testing
             i.putExtra("usernameInput",0)
             i.putExtra("passwordInput",0)
-            //i.putExtra("users")
             startActivity(i)
         }
     }

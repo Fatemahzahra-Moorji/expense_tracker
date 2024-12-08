@@ -28,10 +28,9 @@ class BudgetAdapter : RecyclerView.Adapter<BudgetAdapter.ExpenseViewHolder>() {
 
     override fun getItemCount(): Int = expenses.size
 
-    fun submitList(newExpenses: List<Record>) {
-        val startPosition = expenses.size
-        expenses.addAll(newExpenses)
-        notifyItemRangeInserted(startPosition, newExpenses.size)
+    fun submitList(newRecords: List<Record>) {
+        expenses.clear()
+        expenses.addAll(newRecords)
         notifyDataSetChanged()
     }
 }

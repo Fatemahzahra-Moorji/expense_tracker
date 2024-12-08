@@ -20,6 +20,7 @@
     <string name="login">Login</string>
     <string name="register_redirection">Don\'t have an account? Register here</string>
     <string name="welcome">Welcome!</string>
+    <color name="blue">#0000FF</color>
 
     <string-array name="categories">
         <item>School</item>
